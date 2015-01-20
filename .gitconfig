@@ -1,0 +1,14 @@
+[status]
+	showuntrackedfiles = all
+[user]
+	email = michal.wlodarczyk@open-rnd.pl
+	name = Michal Wlodarczyk
+[credential]
+	helper = cache
+[push]
+	default = tracking
+[color]
+	ui = auto
+[core]
+	pager = less -FRSX
+	editor = /usr/bin/vim
