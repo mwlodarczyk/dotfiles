@@ -7,20 +7,20 @@ call vundle#begin()
     Plugin 'gmarik/Vundle.vim'
     Plugin 'wombat256.vim'
     Plugin 'kien/ctrlp.vim'
-    Plugin 'tpope/vim-fugitive'
     Plugin 'OmniCppComplete'
     Plugin 'ervandew/supertab'
     Plugin 'scrooloose/nerdtree'
     Plugin 'Chiel92/vim-autoformat'
-    "Plugin 'Rykka/riv.vim'
+    Plugin 'tpope/vim-fugitive'
+    Plugin 'ntpeters/vim-better-whitespace'
 call vundle#end()
-filetype plugin on 
+filetype plugin on
 
 "General
 set ts=4
-set tabstop=4    
+set tabstop=4
 set backspace=indent,eol,start
-set shiftwidth=4 
+set shiftwidth=4
 set wrap
 set textwidth=80
 set expandtab
@@ -30,9 +30,11 @@ set number
 set showcmd
 set incsearch
 set autoindent
+set hlsearch
 set guifont=Monaco:h12
 syntax on
 colorscheme wombat256mod
+set nobackup
 
 "Ctags
 set tags=./tags;/
@@ -41,14 +43,21 @@ function! RefreshTags()
     echohl StatusLine | echo "C/C++ tag updated" | echohl None
 endfunction
 
+"Clang path
+let g:clang_library_path='/Library/Developer/CommandLineTools/usr/lib'
+
 "OmniCppComplete
 set omnifunc=syntaxcomplete#Complete " override built-in C omnicomplete with C++ OmniCppComplete plugin
+let OmniCpp_NamespaceSearch     = 1
 let OmniCpp_GlobalScopeSearch   = 1
 let OmniCpp_DisplayMode         = 1
 let OmniCpp_ShowScopeInAbbr     = 0 "do not show namespace in pop-up
 let OmniCpp_ShowPrototypeInAbbr = 1 "show prototype in pop-up
 let OmniCpp_ShowAccess          = 1 "show access in pop-up
-let OmniCpp_SelectFirstItem     = 1 "select first item in pop-up
+let OmniCpp_MayCompleteScope    = 0 "show function params
+let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
+let OmniCpp_MayCompleteDot = 1 " autocomplete after .
+let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
 set completeopt=menuone,menu,longest
 
 "CtrlP
@@ -60,6 +69,9 @@ let g:NERDTreeDirArrows=0
 "Autoformat
 let g:formatprg_cs = "astyle"
 let g:formatprg_args_cs = "--mode=c --style=linux -pcHs4"
+
+"Whitespaces
+autocmd BufWritePre * StripWhitespace
 
 "Keys
 map <F5> <ESC>:tabnew<CR>
